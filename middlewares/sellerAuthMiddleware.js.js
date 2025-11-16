@@ -1,5 +1,5 @@
 // file: middlewares/sellerAuthMiddleware.js
-const Seller = require("../Models/Seller");
+const Seller = require("../models/Seller");
 const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = process.env.SECRET_KEY;

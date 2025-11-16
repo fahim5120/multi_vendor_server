@@ -13,7 +13,7 @@ res.send({message:"Hello Welcome to buyza backend system"})
 })
 
 
-app.use("/api", apiroutes)
+app.use("/api",apiroutes)
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT,()=>{

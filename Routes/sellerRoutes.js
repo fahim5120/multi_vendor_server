@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const sellerController = require("../controllers/sellerController");
-const sellerAuth = require("../middlewares/sellerAuthMiddleware.js");
+const sellerController = require("../controllers/sellerController.js");
+const sellerAuth = require("../middlewares/sellerAuthMiddleware.js.js");
 
 // PUBLIC ROUTES
 router.post("/", sellerController.createSeller);
