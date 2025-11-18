@@ -49,7 +49,7 @@ exports.createUser = async ({ email, fullName, otp }) => {
             email,
             fullName,
             role: "ROLE_CUSTOMER",
-            mobile: "9083476123",
+            mobile: "9142705090",
             password: await bcrypt.hash(otp, 10),
         }).save();
 

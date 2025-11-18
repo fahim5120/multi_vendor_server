@@ -1,11 +1,12 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const apiroutes = require('./Routes/indexRoutes');
+const AdminService = require('./services/adminService');
 
 require('dotenv').config();
 const app = express()
 
-
+AdminService.createDefaultAdmin();
 connectDB()
 app.use(express.json());
 app.get("/",(req,res)=>{

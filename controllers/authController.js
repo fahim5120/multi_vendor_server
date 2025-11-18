@@ -1,5 +1,10 @@
 const { validationResult } = require('express-validator');
 const AuthService = require('../services/authService');
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+
 
 // ---- Simple Error System ----
 const createError = (message, statusCode = 400) => {
@@ -50,3 +55,37 @@ exports.signin = async (req, res) => {
         return res.status(error.statusCode || 400).json({ error: error.message });
     }
 };
+
+
+
+
+exports.adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const admin = await User.findOne({ email }).select("+password");
+
+    if (!admin || admin.role !== "ROLE_ADMIN") {
+      return res.status(401).json({ message: "Not an admin" });
+    }
+
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Wrong password" });
+    }
+
+    const token = jwt.sign({ email: admin.email, role: admin.role }, process.env.JWT_SECRET, {
+      expiresIn: "1d"
+    });
+
+    res.json({
+      message: "Admin Login Success",
+      jwt: token,
+      role: admin.role
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
