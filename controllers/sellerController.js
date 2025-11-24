@@ -1,6 +1,6 @@
 // file: controllers/sellerController.js
 const jwt = require("jsonwebtoken");
-const SellerService = require("../services/sellerService");
+const SellerService = require("../services/SellerService");
 const VerificationService = require("../services/verificationService");
 const generateOTP = require("../utils/generateOtp");
 const { sendVerificationEmail } = require("../utils/sendemail");

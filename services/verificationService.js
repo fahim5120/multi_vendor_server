@@ -1,5 +1,5 @@
 // file: services/verificationService.js
-const VerificationCode = require("../models/VerificationCode");
+const VerificationCode = require("../Models/VerificationCode");
 
 exports.createVerificationCode = async (otp, email) => {
   const existing = await VerificationCode.findOne({ email });

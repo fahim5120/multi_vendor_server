@@ -86,8 +86,8 @@
 
 
 // file: services/sellerService.js
-const Seller = require("../models/Seller");
-const Address = require("../models/Address");
+const Seller = require("../Models/Seller");
+const Address = require("../Models/Address");
 const bcrypt = require("bcryptjs");
 const UserRoles = require("../domain/UserRoles");
 

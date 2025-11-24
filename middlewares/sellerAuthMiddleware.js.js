@@ -1,8 +1,5 @@
-// file: middlewares/sellerAuthMiddleware.js
-const Seller = require("../models/Seller");
+const Seller = require("../Models/Seller");
 const jwt = require("jsonwebtoken");
-
-const SECRET_KEY = process.env.SECRET_KEY;
 
 const sellerAuthMiddleware = async (req, res, next) => {
   try {
@@ -15,7 +12,7 @@ const sellerAuthMiddleware = async (req, res, next) => {
 
     let decoded;
     try {
-      decoded = jwt.verify(token,process.env.JWT_SECRET);
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
       return res.status(401).json({ message: "Invalid or expired token" });
     }
@@ -23,6 +20,11 @@ const sellerAuthMiddleware = async (req, res, next) => {
     const seller = await Seller.findOne({ email: decoded.email });
     if (!seller) {
       return res.status(404).json({ message: "Seller not found" });
+    }
+
+    // OPTIONAL: role check
+    if (seller.role !== "SELLER") {
+      return res.status(403).json({ message: "Access denied! Not a seller." });
     }
 
     req.seller = seller;
@@ -33,4 +35,4 @@ const sellerAuthMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports =sellerAuthMiddleware;
+module.exports = sellerAuthMiddleware;

@@ -1,69 +1,32 @@
 const mongoose = require('mongoose');
-const OrderStatus = require('../domain/OrderStatus');
-const PaymentStatus = require('../domain/PaymentStatus');
 const { Schema } = mongoose;
 
-const orderSchema = new Schema({
+const orderItemSchema = new Schema({
     
-    user: {
+    product: {
         type: Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'Product', // Reference to the Product model
         required: true,
     },
-    seller: {
-        type: Schema.Types.ObjectId,
-        ref: 'Seller', // Reference to the Seller model
-        required: true,
-    },
-    orderItems: [{
-        type: Schema.Types.ObjectId,
-        ref: 'OrderItem', 
-    }],
-    shippingAddress: {
-        type: Schema.Types.ObjectId,
-        ref: 'Address', 
-        required: true,
-    },
-    
-    totalMrpPrice: {
-        type: Number,
-        required: true,
-    },
-    totalSellingPrice: {
-        type: Number,
-        required: true,
-    },
-    discount: {
-        type: Number,
-        default: 0,
-    },
-    orderStatus: {
+    size: {
         type: String,
-        enum: Object.values(OrderStatus), 
-        default: OrderStatus.PENDING,
+        required: true,
     },
-    totalItem: {
+    quantity: {
         type: Number,
         required: true,
     },
-    paymentStatus: {
-        type: String,
-        enum: Object.values(PaymentStatus),
-        default: PaymentStatus.PENDING,
+    mrpPrice: {
+        type: Number,
+        required: true,
     },
-    orderDate: {
-        type: Date,
-        default: Date.now,
-    },
-    deliverDate: {
-        type: Date,
-        default: function() {
-            return Date.now() + 7 * 24 * 60 * 60 * 1000; 
-        },
+    sellingPrice: {
+        type: Number,
+        required: true,
     },
 }, {
-    timestamps: true, 
+    timestamps: true,
 });
 
-const Order = mongoose.model('Order', orderSchema);
-module.exports = Order;
+const OrderItem = mongoose.model('OrderItem', orderItemSchema);
+module.exports = OrderItem;

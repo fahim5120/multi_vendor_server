@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");  // JWT direct import
 const generateOTP = require("../utils/generateOtp");
-const VerificationCode = require("../models/VerificationCode");
-const User = require("../models/User");
-const Cart = require("../models/Cart");
+const VerificationCode = require("../Models/VerificationCode");
+const User = require("../Models/User");
+const Cart = require("../Models/Cart");
 
 // Error helpers
 const createError = (msg, code = 400) => {
